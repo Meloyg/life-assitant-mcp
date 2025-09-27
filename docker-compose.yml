@@ -39,6 +39,7 @@ services:
     ports:
       - "9229:9229" # Node.js inspector port
       - "3000:3000" # Application port (if needed)
+      - "5173:5173" # MCP inspector port
     volumes:
       - .:/app
       - /app/node_modules

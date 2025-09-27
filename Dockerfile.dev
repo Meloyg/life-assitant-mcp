@@ -19,8 +19,8 @@ RUN addgroup -g 1001 -S nodejs && \
 RUN chown -R mcp:nodejs /app
 USER mcp
 
-# Expose ports for development and debugging
-EXPOSE 3000 9229
+# Expose ports for development, debugging, and MCP inspector
+EXPOSE 3000 9229 5173
 
 # Start with development command (with inspector enabled)
 CMD ["npm", "run", "dev:debug"]

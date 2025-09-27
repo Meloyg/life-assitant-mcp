@@ -126,9 +126,34 @@ docker run -it --rm --name mcp-weather-server mcp-weather-server:latest
 
 ### Debugging
 
-#### Local Debugging
+#### MCP Inspector (Recommended)
 
-**Start with inspector enabled:**
+The MCP Inspector provides a specialized debugging interface for MCP protocol communications:
+
+**Start MCP Inspector:**
+
+```bash
+npm run inspector
+```
+
+**Start with build and inspector:**
+
+```bash
+npm run dev:inspector
+```
+
+**Access the Inspector:**
+
+- Open your browser to `http://localhost:5173`
+- The inspector provides a web-based interface to:
+  - Monitor MCP protocol messages
+  - Inspect tool calls and responses
+  - Debug server-client communication
+  - View real-time message flow
+
+#### Node.js Debugging
+
+**Start with Node.js inspector enabled:**
 
 ```bash
 npm run dev:debug
@@ -148,7 +173,7 @@ npm run dev:watch
 
 #### Docker Debugging
 
-**Run development container with debugging:**
+**Run development container with all debugging tools:**
 
 ```bash
 ./scripts/docker-run.sh development
@@ -160,16 +185,28 @@ Or manually:
 docker-compose --profile dev up mcp-weather-server-dev
 ```
 
-#### Connecting Debugger
+This exposes:
 
-1. **Chrome DevTools:**
+- Port 9229: Node.js inspector
+- Port 5173: MCP inspector web interface
+- Port 3000: Application port (if needed)
+
+#### Connecting Debuggers
+
+1. **MCP Inspector (Web Interface):**
+
+   - Navigate to `http://localhost:5173`
+   - Configure your MCP server connection
+   - Monitor protocol messages in real-time
+
+2. **Chrome DevTools:**
 
    - Open Chrome and navigate to `chrome://inspect`
    - Click "Configure" and add `localhost:9229`
    - Your Node.js process should appear under "Remote Target"
    - Click "inspect" to open DevTools
 
-2. **VS Code:**
+3. **VS Code:**
 
    - Add this configuration to your `.vscode/launch.json`:
 
@@ -186,15 +223,33 @@ docker-compose --profile dev up mcp-weather-server-dev
    }
    ```
 
-3. **WebStorm/IntelliJ:**
+4. **WebStorm/IntelliJ:**
    - Create a new "Attach to Node.js/Chrome" configuration
    - Set host to `localhost` and port to `9229`
 
 #### Debug Scripts Explained
 
-- `dev:debug`: Starts with inspector on port 9229, doesn't break on start
-- `dev:debug-brk`: Starts with inspector and breaks on the first line
+- `inspector`: Starts the MCP Inspector web interface
+- `dev:inspector`: Builds and starts the MCP Inspector
+- `dev:debug`: Starts with Node.js inspector on port 9229
+- `dev:debug-brk`: Starts with Node.js inspector and breaks on the first line
 - `dev:watch`: Runs TypeScript in watch mode for continuous compilation
+
+#### Debugging Workflow
+
+1. **For MCP Protocol Issues:**
+
+   - Use `npm run dev:inspector` to monitor MCP messages
+   - Check tool calls, responses, and protocol compliance
+
+2. **For Code-Level Debugging:**
+
+   - Use `npm run dev:debug` with Chrome DevTools or VS Code
+   - Set breakpoints in your TypeScript source files
+
+3. **For Docker Development:**
+   - Use `./scripts/docker-run.sh development`
+   - Access both MCP Inspector (port 5173) and Node.js inspector (port 9229)
 
 ### Available Tools
 
