@@ -17,7 +17,7 @@
     "typescript",
     "model-context-protocol"
   ],
-  "author": "",
+  "author": "Melo Guan",
   "license": "ISC",
   "type": "module",
   "dependencies": {
