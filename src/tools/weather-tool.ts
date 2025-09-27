@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { WeatherAPI } from "../utils/api.js";
-import { WeatherResponse } from "../types/weather.js";
+import { WeatherAPI } from "../utils/api";
+import { WeatherResponse } from "../types/weather";
 
 export const weatherToolSchema = {
   city: z.string().describe("The city to get the weather for"),
