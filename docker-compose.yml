@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  mcp-weather-server:
+    build: .
+    container_name: mcp-weather-server
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    # For MCP stdio communication, we need to run in interactive mode
+    stdin_open: true
+    tty: true
+    # Mount logs directory for persistent logging
+    volumes:
+      - ./logs:/app/logs
+    # Network mode for MCP communication
+    network_mode: host
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: "0.5"
+        reservations:
+          memory: 128M
+          cpus: "0.25"
+
+  # Development service with hot reload
+  mcp-weather-server-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: mcp-weather-server-dev
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=development
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - ./logs:/app/logs
+    network_mode: host
+    profiles:
+      - dev

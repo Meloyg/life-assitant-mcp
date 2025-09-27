@@ -36,7 +36,9 @@ npm install
 
 ## Usage
 
-### Building and Running the Server
+### Local Development
+
+#### Building and Running the Server
 
 1. Build the TypeScript code:
 
@@ -57,6 +59,69 @@ npm run dev
 ```
 
 The server will start and listen for MCP connections via stdio transport.
+
+### Docker Deployment
+
+#### Quick Start with Docker
+
+1. **Build the Docker images:**
+
+```bash
+./scripts/docker-build.sh
+```
+
+2. **Run in production mode:**
+
+```bash
+./scripts/docker-run.sh production
+```
+
+3. **Run in development mode (with hot reload):**
+
+```bash
+./scripts/docker-run.sh development
+```
+
+#### Manual Docker Commands
+
+**Build production image:**
+
+```bash
+docker build -t mcp-weather-server:latest .
+```
+
+**Build development image:**
+
+```bash
+docker build -f Dockerfile.dev -t mcp-weather-server:dev .
+```
+
+**Run with Docker Compose (production):**
+
+```bash
+docker-compose up mcp-weather-server
+```
+
+**Run with Docker Compose (development):**
+
+```bash
+docker-compose --profile dev up mcp-weather-server-dev
+```
+
+**Run standalone container:**
+
+```bash
+docker run -it --rm --name mcp-weather-server mcp-weather-server:latest
+```
+
+#### Docker Features
+
+- **Multi-stage builds** for optimized production images
+- **Non-root user** for enhanced security
+- **Health checks** for container monitoring
+- **Resource limits** for controlled resource usage
+- **Development mode** with hot reload and volume mounting
+- **Persistent logging** with volume mounts
 
 ### Available Tools
 
