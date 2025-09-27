@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "weather": {
+      "command": "node",
+      "args": ["path/to/mcp-weather-server/dist/index.js"],
+      "env": {}
+    }
+  }
+}

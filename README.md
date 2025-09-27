@@ -36,12 +36,24 @@ npm install
 
 ## Usage
 
-### Running the Server
+### Building and Running the Server
 
-To start the MCP Weather Server:
+1. Build the TypeScript code:
 
 ```bash
-node main.ts
+npm run build
+```
+
+2. Start the MCP Weather Server:
+
+```bash
+npm start
+```
+
+Or for development (builds and runs in one command):
+
+```bash
+npm run dev
 ```
 
 The server will start and listen for MCP connections via stdio transport.
@@ -79,11 +91,26 @@ No API keys are required as Open-Meteo provides free access to their weather dat
 
 ```
 mcp-weather-server/
-├── main.ts              # Main server implementation
-├── package.json         # Project dependencies and metadata
-├── package-lock.json    # Locked dependency versions
-├── .gitignore          # Git ignore rules
-└── README.md           # This file
+├── src/                    # Source code
+│   ├── index.ts           # Main entry point
+│   ├── server/            # Server implementation
+│   │   └── index.ts       # MCP server setup
+│   ├── tools/             # Tool implementations
+│   │   └── weather-tool.ts # Weather tool logic
+│   ├── types/             # TypeScript type definitions
+│   │   └── weather.ts     # Weather-related types
+│   └── utils/             # Utility functions
+│       └── api.ts         # API client utilities
+├── dist/                  # Compiled JavaScript output
+├── examples/              # Example configurations
+│   └── mcp-config.json   # MCP client configuration example
+├── docs/                  # Documentation
+├── tests/                 # Test files
+├── tsconfig.json         # TypeScript configuration
+├── package.json          # Project dependencies and metadata
+├── package-lock.json     # Locked dependency versions
+├── .gitignore           # Git ignore rules
+└── README.md            # This file
 ```
 
 ## Dependencies
