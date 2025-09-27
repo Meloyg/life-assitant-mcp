@@ -20,7 +20,7 @@ RUN chown -R mcp:nodejs /app
 USER mcp
 
 # Expose ports for development, debugging, and MCP inspector
-EXPOSE 3000 9229 5173
+EXPOSE 3000 9229
 
 # Start with development command (with inspector enabled)
 CMD ["npm", "run", "dev:debug"]
