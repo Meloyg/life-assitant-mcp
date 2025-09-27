@@ -25,7 +25,7 @@ services:
           memory: 128M
           cpus: "0.25"
 
-  # Development service with hot reload
+  # Development service with hot reload and debugging
   mcp-weather-server-dev:
     build:
       context: .
@@ -36,10 +36,12 @@ services:
       - NODE_ENV=development
     stdin_open: true
     tty: true
+    ports:
+      - "9229:9229" # Node.js inspector port
+      - "3000:3000" # Application port (if needed)
     volumes:
       - .:/app
       - /app/node_modules
       - ./logs:/app/logs
-    network_mode: host
     profiles:
       - dev

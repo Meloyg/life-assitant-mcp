@@ -121,7 +121,80 @@ docker run -it --rm --name mcp-weather-server mcp-weather-server:latest
 - **Health checks** for container monitoring
 - **Resource limits** for controlled resource usage
 - **Development mode** with hot reload and volume mounting
+- **Node.js Inspector** for debugging support
 - **Persistent logging** with volume mounts
+
+### Debugging
+
+#### Local Debugging
+
+**Start with inspector enabled:**
+
+```bash
+npm run dev:debug
+```
+
+**Start with inspector and break on first line:**
+
+```bash
+npm run dev:debug-brk
+```
+
+**Watch mode for TypeScript compilation:**
+
+```bash
+npm run dev:watch
+```
+
+#### Docker Debugging
+
+**Run development container with debugging:**
+
+```bash
+./scripts/docker-run.sh development
+```
+
+Or manually:
+
+```bash
+docker-compose --profile dev up mcp-weather-server-dev
+```
+
+#### Connecting Debugger
+
+1. **Chrome DevTools:**
+
+   - Open Chrome and navigate to `chrome://inspect`
+   - Click "Configure" and add `localhost:9229`
+   - Your Node.js process should appear under "Remote Target"
+   - Click "inspect" to open DevTools
+
+2. **VS Code:**
+
+   - Add this configuration to your `.vscode/launch.json`:
+
+   ```json
+   {
+     "type": "node",
+     "request": "attach",
+     "name": "Attach to MCP Server",
+     "address": "localhost",
+     "port": 9229,
+     "localRoot": "${workspaceFolder}",
+     "remoteRoot": "/app",
+     "skipFiles": ["<node_internals>/**"]
+   }
+   ```
+
+3. **WebStorm/IntelliJ:**
+   - Create a new "Attach to Node.js/Chrome" configuration
+   - Set host to `localhost` and port to `9229`
+
+#### Debug Scripts Explained
+
+- `dev:debug`: Starts with inspector on port 9229, doesn't break on start
+- `dev:debug-brk`: Starts with inspector and breaks on the first line
+- `dev:watch`: Runs TypeScript in watch mode for continuous compilation
 
 ### Available Tools
 
